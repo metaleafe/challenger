@@ -1,0 +1,456 @@
+@import url(https://fonts.googleapis.com/css?family=Sniglet|Raleway:900);
+
+:root {
+    --color-primary: #F90;
+    --color-primary-dark: #e58f0e;
+    --color-bg: #98d4f3;
+    --color-border: #98d4f3;
+    --color-border-focus: #77bde0;
+    --color-text: #676767;
+    --color-placeholder: #aaa;
+    --color-success: #2baf2b;
+    --color-success-light: rgba(43, 175, 43, 0.5);
+    --color-shadow: rgba(0, 0, 0, 0.1);
+    --color-focus-shadow: rgba(0, 120, 200, 0.5);
+    --color-error: red;
+    --color-success-text: green;
+    --color-white: #ffffff;
+    --font-size-base: 1em;
+    --font-size-large: 1.5em;
+    --font-size-title: 3em;
+    --font-size-submit: 1.29em;
+    --radius-large: 20px;
+    --radius-small: 10px;
+    --form-width: 500px;
+    --form-padding-top: 40px;
+    --input-padding: 10px;
+    --input-margin-top: 5px;
+}
+
+html {
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
+body,
+html {
+    margin: 0;
+    padding: 0;
+    font-family: "Noto Sans JP", sans-serif;
+}
+
+h1 {
+    font-weight: normal;
+    font-size: var(--font-size-title);
+    font-family: 'Raleway', sans-serif;
+    color: var(--color-primary);
+    text-align: center;
+    margin-top: 30px;
+}
+
+header {
+    height: 160px;
+    background: url('http://www.geertjanhendriks.nl/codepen/form/golf.png') repeat-x bottom;
+}
+
+.fish {
+    background-image: url('http://www.geertjanhendriks.nl/codepen/form/fish.png');
+    width: 235px;
+    height: 104px;
+    margin-left: -235px;
+    position: absolute;
+    z-index: 0;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    transition: transform 0.3s ease, left 0.8s ease-out;
+    cursor: pointer;
+}
+
+.fish:hover {
+    transform: scale(1.3) translateY(-30px);
+    left: calc(100% - 100px);
+}
+
+.fish.clicked {
+    animation: bubble-out 1s forwards;
+}
+
+.fish::after {
+    content: '';
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    background: url('https://upload.wikimedia.org/wikipedia/commons/8/88/Bubble_icon.svg') no-repeat center/contain;
+    top: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    animation: bubble-pop 1s forwards;
+}
+
+@keyframes bubble-pop {
+    0% {
+        opacity: 1;
+        transform: translateX(-50%) scale(0.5);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateX(-50%) translateY(-60px) scale(1.5);
+    }
+}
+
+@keyframes bubble-out {
+    0% {
+        transform: scale(1) translateY(0);
+        opacity: 1;
+    }
+
+    50% {
+        transform: scale(1.3) translateY(-30px);
+        opacity: 0.7;
+    }
+
+    100% {
+        transform: scale(0.5) translateY(-100px);
+        opacity: 0;
+    }
+}
+
+#fish {
+    top: 80px;
+    animation-name: swim1;
+    animation-duration: 8s;
+}
+
+#fish2 {
+    top: 230px;
+    animation-name: swim2;
+    animation-duration: 15s;
+    animation-delay: 3s;
+    transform: scale(0.9);
+}
+
+#fish3 {
+    top: 400px;
+    animation-name: swim3;
+    animation-duration: 25s;
+    animation-delay: 15s;
+    transform: scale(1.2) scaleX(-1);
+}
+
+@keyframes swim1 {
+    0% {
+        left: -250px;
+        opacity: 1;
+    }
+
+    95% {
+        opacity: 1;
+    }
+
+    100% {
+        left: 100%;
+        opacity: 0;
+    }
+}
+
+@keyframes swim2 {
+    0% {
+        left: -300px;
+        opacity: 1;
+    }
+
+    95% {
+        opacity: 1;
+    }
+
+    100% {
+        left: 100%;
+        opacity: 0;
+    }
+}
+
+@keyframes swim3 {
+    0% {
+        left: 100%;
+        opacity: 1;
+    }
+
+    95% {
+        opacity: 1;
+    }
+
+    100% {
+        left: -300px;
+        opacity: 0;
+    }
+}
+
+#form {
+    height: 100%;
+    background-color: var(--color-bg);
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
+}
+
+form {
+    width: var(--form-width);
+    margin: 0 auto;
+    padding-top: var(--form-padding-top);
+    color: var(--color-white);
+    position: relative;
+    z-index: 2;
+}
+
+label {
+    font-size: var(--font-size-large);
+    margin-top: 20px;
+    padding-left: 20px;
+    display: block;
+}
+
+input,
+textarea {
+    width: var(--form-width);
+    padding: var(--input-padding);
+    margin-top: var(--input-margin-top);
+    border-radius: var(--radius-large);
+    border: 3px solid var(--color-border);
+    font-family: 'Sniglet', cursive;
+    font-size: var(--font-size-base);
+    color: var(--color-text);
+    background-color: var(--color-white);
+    box-shadow: 0 2px 6px var(--color-shadow);
+    transition: border 0.5s, box-shadow 0.5s;
+    box-sizing: border-box;
+}
+
+input:focus,
+textarea:focus {
+    border-color: var(--color-border-focus);
+    box-shadow: 0 0 5px var(--color-focus-shadow);
+}
+
+textarea {
+    height: 100px;
+    resize: none;
+}
+
+::placeholder {
+    color: var(--color-placeholder);
+    opacity: 1;
+}
+
+input[type="submit"] {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    height: 50px;
+    font-size: var(--font-size-submit);
+    cursor: pointer;
+    margin-top: 30px;
+    transition: background-color 0.5s;
+}
+
+input[type="submit"]:hover {
+    background-color: var(--color-primary-dark);
+}
+
+input[type="radio"] {
+    width: auto;
+    margin-right: 10px;
+    vertical-align: middle;
+    accent-color: var(--color-primary);
+}
+
+.formgroup,
+.formgroup-active,
+.formgroup-error,
+.formgroup-success {
+    background-repeat: no-repeat;
+    background-position: right bottom;
+    background-size: 10.5%;
+    transition: background-image 0.7s;
+    width: calc(var(--form-width) + 66px);
+    padding-top: 2px;
+}
+
+.formgroup {
+    background-image: url('http://www.geertjanhendriks.nl/codepen/form/pixel.gif');
+}
+
+.formgroup-active {
+    background-image: url('http://www.geertjanhendriks.nl/codepen/form/octo.webp');
+}
+
+.formgroup-error {
+    background-image: url('http://www.geertjanhendriks.nl/codepen/form/octo-error.webp') !important;
+    color: var(--color-error);
+}
+
+.formgroup-error label {
+    color: var(--color-error);
+}
+
+.formgroup-success {
+    background-image: url('https://cdn-icons-png.flaticon.com/512/845/845646.webp');
+}
+
+.formgroup-success label {
+    color: var(--color-success);
+}
+
+input.form-success,
+textarea.form-success {
+    border-color: var(--color-success);
+    box-shadow: 0 0 5px var(--color-success-light);
+}
+
+.success-message {
+    color: var(--color-success-text);
+    font-size: var(--font-size-large);
+    text-align: center;
+    margin-top: 20px;
+}
+
+#student-form {
+    padding-left: 20px;
+}
+
+#student-form .radio-group {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 40px;
+    margin-top: 10px;
+}
+
+#student-form .radio-group label {
+    font-size: 1.3em;
+    color: var(--color-white);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+footer {
+    font-weight: 100;
+    padding-top: 1rem;
+    margin: 0;
+    background-color: var(--color-bg);
+    text-align: center;
+    padding-bottom: 3rem;
+}
+
+.copyright {
+    font-weight: 100;
+    font-size: 0.5rem;
+}
+
+
+/*レスポンシブ */
+
+@media (max-width: 768px) {
+    header {
+        height: auto;
+        padding: 20px;
+        background-position: center bottom;
+        background-size: 100% auto;
+        background-repeat: no-repeat;
+    }
+
+    h1 {
+        font-size: 2em;
+        text-align: center;
+        margin: 10px auto;
+        word-break: keep-all;
+    }
+
+    form {
+        width: 90%;
+        padding: 20px;
+    }
+
+    input,
+    textarea {
+        width: 100%;
+        font-size: 1em;
+    }
+
+    .formgroup,
+    .formgroup-active,
+    .formgroup-error,
+    .formgroup-success {
+        width: 100%;
+        background-size: 8%;
+    }
+
+    label {
+        font-size: 1.2em;
+    }
+
+    input[type="submit"] {
+        font-size: 1.1em;
+        height: 45px;
+    }
+
+    .success-message {
+        font-size: 1.2em;
+        padding: 10px;
+    }
+
+    #student-form .radio-group {
+        flex-direction: column;
+        gap: 10px;
+        align-items: flex-start;
+    }
+
+    .fish {
+        transform: scale(0.8);
+    }
+
+    footer {
+        padding-bottom: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    header {
+        padding: 10px 0;
+        background-position: center bottom;
+        background-size: 100% auto;
+        background-repeat: no-repeat;
+    }
+
+    h1 {
+        font-size: 1.5em;
+        text-align: center;
+        margin: 10px auto;
+        word-break: keep-all;
+    }
+
+    label {
+        font-size: 1em;
+    }
+
+    input,
+    textarea {
+        font-size: 0.9em;
+    }
+
+    input[type="submit"] {
+        font-size: 1em;
+        height: 40px;
+    }
+
+    .fish {
+        visibility: hidden;
+        width: 0;
+        height: 0;
+        overflow: hidden;
+        position: absolute;
+    }
+}

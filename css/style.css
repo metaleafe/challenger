@@ -1,0 +1,900 @@
+@charset "UTF-8";
+
+/* 共通項目 */
+:root {
+  --color-primary: #4FB8FF;
+  --color-text: #121212;
+  --color-bg: #e9e9f0;
+  --color-hover: #fff;
+  --color-accent: #4b75d9;
+  --color-box: rgba(0, 0, 0, 0.2);
+}
+
+html {
+  /* 基準は10px */
+  font-size: clamp(0.625rem, 1.5vw, 1rem);
+}
+*{
+margin: 0;
+padding: 0;
+}
+
+body {
+  color: var(--color-text);
+  font-family: "Noto Sans JP", sans-serif;
+  margin: 0;
+  padding: 0;
+  font-family: Inter, sans-serif;
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  /* 
+  min-height: 100vh; */
+}
+
+
+a {
+  color: var(--color-text);
+  text-decoration: none;
+  display: inline-block;
+}
+
+img {
+  max-width: 100%;
+  /* vertical-align: bottom; */
+  height: auto;
+  display: block;
+}
+
+li {
+  list-style: none;
+}
+
+/*===========
+headerタグを多用して、ほかのものに干渉しないようにしておきました（全然修正箇所とかあればやるので行ってください！（5/9田中））
+===========*/
+
+* {
+  box-sizing: border-box;
+}
+
+header .slideshow-wrap {
+  width: 100%;
+  height: 50%;
+  display: flex;
+  overflow: hidden;
+  gap: 0;
+  background-color: var(--color-bg);
+}
+
+header .slideshow {
+  display: flex;
+  width: max-content;
+  animation: header-slide-loop 10s linear infinite;
+}
+
+header .content-logo,
+header .content-icon {
+  width: 350px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  text-align: left;
+  padding: 8px;
+}
+
+header .content-icon .image-box {
+  width: 80px;
+  height: 80px;
+  margin-right: 2px;
+}
+
+header .image-box {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  flex-shrink: 0;
+}
+
+header .image-box img {
+  position: absolute;
+  width: 50%;
+  height: 50%;
+  object-fit: cover;
+  top: 25%;
+  left: 0;
+  opacity: 0;
+  animation: header-fade-switch 4s infinite;
+}
+
+header .content-icon .image-box img {
+  border-radius: 50%;
+}
+
+header .content-logo .image-box img {
+  border-radius: 12%;
+}
+
+/* アニメーションタイミング（各セット内） */
+header .content-logo .img1 {
+  animation-delay: 0s;
+}
+
+header .content-logo .img2 {
+  animation-delay: 2s;
+}
+
+header .content-icon .img1 {
+  animation-delay: 1s;
+}
+
+header .content-icon .img2 {
+  animation-delay: 3s;
+}
+
+header .content-logo p,
+header .content-icon p {
+  margin: 0;
+  font-size: 1rem;
+  color: #333;
+}
+
+@keyframes header-fade-switch {
+  0% {
+    opacity: 0;
+  }
+
+  10% {
+    opacity: 1;
+  }
+
+  40% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes header-slide-loop {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+
+/*ハンバーガーの設定(大きさ適当）*/
+.box {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  transition: all 0.5s;
+  cursor: pointer;
+  z-index: 30;
+  position: fixed;
+  top: 0;
+  right: 0;
+  background-color: var(--color-primary);
+}
+
+.box:hover {
+  opacity: 0.8;
+}
+
+.box span {
+  position: absolute;
+  left: 25%;
+  width: 50%;
+  height: 2px;
+  background-color: var(--color-hover);
+  transition: all 0.5s;
+}
+
+.box span:nth-child(1) {
+  top: 36%;
+}
+
+.box span:nth-child(2) {
+  top: 50%;
+}
+
+.box span:nth-child(3) {
+  top: 64%;
+}
+
+.open .box span {
+  background-color: var(--color-hover);
+}
+
+.open .box span:nth-child(1) {
+  top: 47%;
+  transform: rotate(-45deg);
+}
+
+.open .box span:nth-child(2),
+.open .box span:nth-child(3) {
+  top: 47%;
+  transform: rotate(45deg);
+
+}
+
+/*メニューの設定*/
+#nav {
+  font-size: 1rem;
+  display: block;
+  position: fixed;
+  top: 0;
+  left: -100%;
+  bottom: 0;
+  width: 100%;
+  font-weight: bold;
+  color: var(--color-hover);
+  padding: 40px 0 0 50px;
+  background-color: var(--color-primary);
+  transition: all 0.5s;
+  z-index: 30;
+  opacity: 0;
+}
+
+.open #nav {
+  left: 0;
+  opacity: 1;
+}
+
+#nav ul {
+  margin-top: 10vh;
+}
+
+#nav li {
+  margin-bottom: 5vh;
+  text-align: center;
+}
+
+header a {
+  color: var(--color-hover);
+}
+
+/*===========
+このボタンの設定がずっと放置されてる。（5/9田中)
+追記：修正終了？
+===========*/
+
+.button1 {
+  background-color: #e58f0e;
+  width: 250px;
+  border-radius: 30px;
+  box-sizing: border-box;
+  color: var(--color-hover);
+  display: block;
+  font-weight: bold;
+  padding: 15px 0;
+  margin: 5vh auto 0;
+  transition: 0.3s;
+  text-align: center;
+  position: relative;
+  border: solid 1px var(--color-hover);
+}
+
+.button1:hover {
+  background-color: var(--color-hover);
+  color: #e58f0e;
+}
+
+.wrapper {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+/*===========
+.mainview(このsectionのものは画面いっぱい（100vh）で表示させたいができない
+→100%にしてはダメですか？？イメージがわからなく（池田）
+→mainviewだけで画面を覆うイメージがいいのかなぁ～と想像中です（田中）
+追記：全体表示じゃなくても成立している気がしてきました。。。（5/9田中）
+===========*/
+
+#mainview {
+  margin-top: 10%;
+  padding: 0 3%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* height: 100%; */
+  width: 100%;
+  position: relative;
+  z-index: 1;
+}
+
+#mainview h2 {
+  font-size: 4rem;
+  color: var(--color-accent);
+  text-align: left;
+}
+
+#mainview .title {
+  width: 60%;
+  text-align: center;
+}
+
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* 4つのキューブのcss */
+#mainview .cube-slider {
+  position: relative;
+  width: 300px;
+  /* キューブの幅を調整 */
+  height: 400px;
+  /* キューブの高さを調整 */
+  transform-style: preserve-3d;
+  /* 回転時間を10秒に設定 */
+  animation: rotateCube 10s linear infinite;
+  margin: 0 8%;
+}
+
+#mainview .cube {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  transform-style: preserve-3d;
+  margin: 0;
+}
+
+#mainview .card-con {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: var(--color-bg);
+  box-shadow: 0 4px 8px var(--color-box);
+  border-radius: 10px;
+  overflow: hidden;
+  transition: transform 0.3s;
+  display: flex;
+  flex-direction: column;
+  /* 画像とテキストを縦方向に並べる */
+  text-decoration: none;
+  /* リンクの下線を削除 */
+  color: inherit;
+  /* テキストカラーを継承 */
+}
+
+#mainview .card img {
+  width: 100%;
+  /* height: ; */
+  /* 画像の高さを固定 */
+  object-fit: cover;
+  /* 画像の比率を維持しながらカードに収める */
+}
+
+
+#mainview .card-con:hover {
+  transform: translateY(-10px);
+}
+
+.front {
+  transform: rotateY(0deg) translateZ(150px);
+}
+
+.back {
+  transform: rotateY(180deg) translateZ(150px);
+}
+
+.left {
+  transform: rotateY(-90deg) translateZ(150px);
+}
+
+.right {
+  transform: rotateY(90deg) translateZ(150px);
+}
+
+@keyframes rotateCube {
+  0% {
+    transform: rotateY(0deg);
+  }
+
+  100% {
+    transform: rotateY(360deg);
+  }
+}
+
+#mainview .card-content {
+  padding: 15px;
+  flex-grow: 1;
+  /* テキスト部分がカード全体の残りのスペースを占有する */
+}
+
+#mainview .card-content .category {
+  color: var(--color-accent);
+  font-weight: 800;
+}
+
+#mainview .card-content .date {
+  color: var(--color-accent);
+  font-weight: 100;
+
+}
+
+/* レスポンシブ */
+@media (max-width: 768px) {
+
+  /* titleを100% */
+  #mainview .title {
+    width: 100%;
+  }
+  
+  #mainview .title h2 {
+    text-align: center;
+  }
+
+  /* cubeはなしにする */
+  #mainview .cube-slider {
+    display: none;
+  }
+}
+/*==========
+detail箇所（いろいろ迷いましたが、結局シンプルなデザインにしました）
+==========*/
+
+#event-detail {
+  margin-top: 10vh;
+}
+
+#event-detail .event-title{
+  font-size: 2rem;
+  text-align: center;
+  position: relative;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  background-color: var(--color-primary);
+  color: var(--color-hover);
+  border-radius: 30px;
+  border: solid var(--color-primary) 0.5rem;
+}
+
+#event-detail .event-list{
+  margin: 0 auto;
+  padding-bottom: 2rem;
+  width: 80%;
+  background-color: #fff;
+  border-radius: 30px;
+  font-size: 1.5rem;
+  border: solid var(--color-primary) 0.5rem;
+}
+
+#event-detail .event-list ul{
+  margin: 0 auto;
+  width: 40%;
+}
+
+#event-detail .event-list li{ 
+  position: relative;
+  line-height: 1.8;
+}
+
+#event-detail .event-list li::after{
+  display: block;
+  position: absolute;
+  width: 10px;
+  height: 5px;
+  border-left: 3px solid #000;
+  border-bottom: 3px solid #000;
+  transform: rotate(-45deg);
+}
+
+.button2{
+  background-color:#e58f0e ;
+  width: 50%;
+  border-radius: 30px;
+  box-sizing: border-box;
+  color: #fff;
+  display: block;
+  font-size: 1.5rem;
+  font-weight: bold;
+  padding: 15px 0;
+  margin: 100px auto 0;
+  transition: 0.3s;
+  text-align: center;
+  position: relative;
+}
+
+.button2:hover{
+  background-color: #fff;
+  color: #e58f0e;
+}
+
+/* メッセージ */
+#message{
+margin-top: 10vh;
+text-align: center;
+align-items: center;
+}
+
+#message h2 {
+  font-size: 3rem;
+  background: linear-gradient(to bottom, #7a3f9d, #40207a);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  display: inline-block;
+  margin-bottom: 10px;
+}
+
+#message h3{
+  font-size: 1.5rem;
+}
+
+/*===========
+container（色の指定をする）
+===========*/
+#card-container-message {
+  padding-top: 4%;
+  text-align: center;
+  align-items: center;
+  margin: 0 auto;
+}
+
+#card-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 100px 50px;
+  padding: 100px 50px;
+}
+
+#card-container-message h2{
+  font-size: 2.4rem;
+}
+
+#card-container .card {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  width: 350px;
+  max-width: 100%;
+  height: 300px;
+  background: white;
+  border-radius: 20px;
+  transition: 0.5s;
+  box-shadow: 0 35px 80px rgba(0, 0, 0, 0.15);
+}
+
+#card-container .card:hover {
+  height: 400px;
+  /*350~380?*/
+  cursor: pointer;
+}
+
+#card-container .card .img-box {
+  position: absolute;
+  top: 30px;
+  width: 280px;
+  height: 160px;
+  background: #333;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: 0.5s;
+}
+
+#card-container .card:hover .img-box {
+  top: -70px;
+  scale: 0.75;
+  box-shadow: 0 15px 45px rgba(0, 0, 0, 0.2);
+}
+
+#card-container .card .img-box img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* object-fit: contain; */
+  object-fit: cover;
+}
+
+#card-container .card .content {
+  position: absolute;
+  top: 220px;
+  width: 100%;
+  height: 35px;
+  padding: 0 30px;
+  text-align: center;
+  overflow: hidden;
+  transition: 0.5s;
+}
+
+#card-container .card .content .pink {
+  color: #D94C85;
+}
+
+#card-container .card .content .green {
+  color: #4CD954;
+}
+
+#card-container .card .content .blue {
+  color: #4C76D9;
+}
+
+#card-container .card .content .yellow {
+  color: #D9AF4C;
+}
+
+#card-container .card:hover .content {
+  top: 130px;
+  height: 250px;
+}
+
+#card-container .card .content h2 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--clr);
+  margin-bottom: 20px;
+}
+
+#card-container .card .content p {
+  color: #333;
+  text-align: left;
+
+}
+
+#card-container .card .content .instagram-link {
+  display: flex;
+  justify-content: space-between;
+}
+
+#card-container .card .content .instagram-link img {
+  width: 50%;
+  margin: 0 auto;
+  margin-top: 15px;
+}
+
+#card-container .card .content .instagram-link .kakashi-link img {
+  border-radius: 50%;
+}
+
+#card-container .card .content .instagram-link .iruka-link img {
+  border-radius: 50%;
+}
+
+#card-container .card .content a:hover {
+  opacity: 0.8;
+}
+
+#card-container .container-text {
+  text-align: center;
+  font-size: 2.0rem;
+  font-weight: bold;
+}
+
+#card-container .container-text p {
+  margin-bottom: 20px;
+}
+
+#card-container .container-text .gradation {
+  font-size: 34px;
+  background: linear-gradient(to bottom, #7a3f9d, #40207a);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  display: inline-block;
+  margin: 10px 0;
+}
+
+/*===========
+SP レスポンシブ
+===========*/
+@media (max-width: 768px) {
+  #card-container .card:hover {
+    height: 360px;
+  }
+
+  #card-container .container-text {
+    font-size: 1.6rem;
+  }
+
+  #card-container .container-text .gradation {
+    font-size: 2.0rem;
+  }
+
+  #card-container .card .content p {
+    font-size: 1.36rem;
+  }
+}
+
+@media (max-width: 480px) {
+  #card-container .card {
+    width: 230px;
+    border-radius: 15px;
+  }
+
+  #card-container .card .img-box {
+    width: 185px;
+    border-radius: 10px;
+  }
+
+  #card-container .card .content p {
+    font-size: 1.2rem;
+  }
+
+  #card-container .container-text {
+    font-size: 1.2rem;
+  }
+
+  #card-container .container-text .gradation {
+    font-size: 1.6rem;
+  }
+}
+
+/*===========
+Q&A（色の調整、見た目をもう少し整える（5/9田中））
+===========*/
+#qa{
+  margin-top: 5vh;
+  padding: 0 5%;
+}
+
+#qa.content {
+  padding: 0 20px;
+  margin: 100px auto;
+}
+
+#qa .title {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 50px;
+  text-align: center;
+}
+
+#qa .qa {
+  text-align: light;
+  padding-bottom: 30px;
+}
+
+#qa .qa-text {
+  color: var(--color-primary);
+  font-weight: bolder;
+}
+
+#ac-menu li {
+  border-top: solid 1px #000;
+}
+
+#ac-menu li:last-child {
+  border-bottom: solid 1px #000;
+}
+
+#ac-menu .label {
+  cursor: pointer;
+  font-size: 1.125rem;
+  font-weight: bold;
+  padding: 40px 30px;
+  position: relative;
+  transition: .5s;
+}
+
+#ac-menu .label:hover {
+  background-color: rgba(0, 128, 128, 0.2);
+}
+
+/*
+  ラベル右側のアイコン「＋」を設定
+  beforeが横棒
+  afterが縦棒
+  */
+#ac-menu .label::before,
+#ac-menu .label::after {
+  content: '';
+  width: 20px;
+  height: 1px;
+  background: var(--color-text);
+  position: absolute;
+  top: 50%;
+  right: 5%;
+  transform: translateY(-50%);
+}
+
+#ac-menu .label::after {
+  transform: translateY(-50%) rotate(90deg);
+  transition: .5s;
+}
+
+/*
+  アコーディオンメニューが開いている場合
+  */
+#ac-menu .label.open {
+  /* ラベルの背景色を変更 */
+  background-color: var(--color-hover);
+}
+
+#ac-menu .label.open::before {
+  /* ラベルアイコンの横棒を非表示 */
+  opacity: 0;
+}
+
+#ac-menu .label.open::after {
+  /* ラベルアイコンの縦棒を横向きに回転 */
+  transform: rotate(180deg);
+}
+
+/*
+  アコーディオンメニューのコンテンツ部分は、「display: none;」で非表示にしておく。
+  ラベルクリック時にjQueryの「  $(this).next().slideToggle();」で表示に切り替わる
+  */
+#ac-menu .detail {
+  border-top: solid 1px var(--color-bg);
+  padding: 35px 30px;
+  display: none;
+}
+
+#ac-menu .detail .d-text {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+/*-------------------------------------------
+  SP
+  -------------------------------------------*/
+@media screen and (max-width: 768px) {
+
+  .content .title,
+  .qa {
+    text-align: center;
+
+  }
+
+  #ac-menu .label {
+    padding: 40px 0.9rem;
+    font-size: 0.9rem;
+    word-break: keep-all;
+  }
+
+  #ac-menu .detail {
+    padding: 35px 0.9rem;
+  }
+
+  #ac-menu .detail .d-text {
+    flex-direction: column;
+    font-size: 0.8rem;
+    word-break: keep-all;
+  }
+
+}
+
+/*===========
+button
+===========*/
+
+
+/*===========
+footer（田中）
+===========*/
+footer {
+  background-color: var(--color-accent);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--color-hover);
+  height: 5vh;
+  margin-top: 5vh;
+}
+
+.copyright {
+  font-size: 0.5rem;
+}
